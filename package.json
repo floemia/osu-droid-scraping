@@ -1,0 +1,37 @@
+{
+  "name": "osu-droid-scraping",
+  "version": "1.0.0",
+  "description": "web-scraping to get info about an osu!droid user",
+  "author": {
+    "name": "floemia"
+  },
+  "keywords": [
+    "typescript",
+	"osu",
+	"web-scraping"
+  ],
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist/**/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.3",
+    "tsup": "^6.7.0",
+    "typescript": "^5.0.4"
+  }
+}
