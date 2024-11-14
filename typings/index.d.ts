@@ -44,7 +44,7 @@ interface DroidUser {
 	/**
 	* The user's total ranked score.
 	**/
-	total_score: number,
+	ranked_score: number,
 
 	/**
 	* The user's total DPP (Droid Performance Points).

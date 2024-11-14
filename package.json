@@ -1,6 +1,6 @@
 {
   "name": "osu-droid-scraping",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "web-scraping to get info about an osu!droid user",
   "author": {
     "name": "floemia"

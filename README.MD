@@ -5,7 +5,9 @@ A small package to retrieve some info about an osu!droid user.
 
 It retrieves the HTML source code from `https://osudroid.moe/profile.php?uid={uid}` and parses it.
 
-Please, be responsible with the usage of this package.
+**This module may break whenever the page gets updated.**
+
+**Please, be responsible with the usage of this package.**
 
 
 
@@ -51,7 +53,7 @@ const recent_scores = await droid.scores({ uid: 177955 })
   id: 177955,
   rank: { score: 1502, dpp: 123 },
   country: 'PY',
-  total_score: 4270092650,
+  ranked_score: 4270092650,
   dpp: 8528,
   accuracy: 96.5,
   playcount: 622
@@ -62,35 +64,35 @@ const recent_scores = await droid.scores({ uid: 177955 })
 // DroidScore[]
 [
     {
-        "title": "THE ORAL CIGARETTES - Flower (Nevo) [Reflect",
-        "rank": "SH",
-        "score": 34150840,
-        "timestamp": 1720731488000,
-        "dpp": 564,
-        "mods": {
-            "acronyms": [
-                "HD",
-                "NC"
+        title: 'THE ORAL CIGARETTES - Flower (Nevo) [Reflect',
+        rank: 'SH',
+        score: 34150840,
+        timestamp: 1720731488000,
+        dpp: 564,
+        mods {
+            acronyms: [
+                'HD',
+                'NC'
             ],
-            "speed": 1
+            speed: 1
         },
-        "accuracy": 99.24,
-        "combo": 1522,
-        "misses": 0,
-        "hash": "1539021f8567e814c78adf2fe3f466ff",
-        "user": {
-            "username": "MG_floemia",
-            "avatar_url": "https://osudroid.moe/user/avatar/177955.png",
-            "id": 177955,
-            "rank": {
-                "score": 1502,
-                "dpp": 123
+        accuracy: 99.24,
+        combo: 1522,
+        misses: 0,
+        hash: '1539021f8567e814c78adf2fe3f466ff',
+        user: {
+            username: 'MG_floemia',
+            avatar_url: 'https://osudroid.moe/user/avatar/177955.png',
+            id: 177955,
+            rank: {
+                score: 1502,
+                dpp: 123
             },
-            "country": "PY",
-            "total_score": 4270092650,
-            "dpp": 8528,
-            "accuracy": 96.5,
-            "playcount": 622
+            country: 'PY',
+            ranked_score: 4270092650,
+            dpp: 8528,
+            accuracy: 96.5,
+            playcount: 622
         }
     }
 ]

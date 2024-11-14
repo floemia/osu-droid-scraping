@@ -46,7 +46,7 @@ const user = async (params: DroidUserParameters): Promise<DroidUser | undefined>
 			dpp: ranks[1]
 		},
 		country: country,
-		total_score: Number(tech_data[0].replace(/,/g, '')),
+		ranked_score: Number(tech_data[0].replace(/,/g, '')),
 		dpp: Number(tech_data[1].replace(/,|pp/g, '')),
 		accuracy: Number(tech_data[2].replace("%", '')),
 		playcount: Number(tech_data[3]),
