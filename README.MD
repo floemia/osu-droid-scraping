@@ -69,7 +69,7 @@ const recent_scores = await droid.scores({ uid: 177955 })
         score: 34150840,
         timestamp: 1720731488000,
         dpp: 564,
-        mods {
+        mods: {
             acronyms: [
                 'HD',
                 'NC'
