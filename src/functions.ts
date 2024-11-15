@@ -69,7 +69,7 @@ const scores = async (params: DroidScoreParameters): Promise<DroidScore[] | unde
 
 	const scores = data.match(/(?<=<a class="">)(.*?)(?=<\/span>)/g)
 	if (!scores) return []
-	if (params.limit && (scores.length > params.limit || params.limit <= 0)) scores.length = params.limit
+	if (params.limit && params.limit > 0 && params.limit < scores.length) scores.length = params.limit
 
 	const scores_array: DroidScore[] = []
 

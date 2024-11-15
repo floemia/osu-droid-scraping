@@ -60,7 +60,7 @@ const user = await droid.user({ uid: 177955 })
 ```
 
 ```js
-const top_plays = await droid.user({ uid: 177955, type: "top" })
+const top_plays = await droid.scores({ uid: 177955, type: "top", limit: 3  })
 // will return DroidScore[]
 [
     {
@@ -89,5 +89,5 @@ const top_plays = await droid.user({ uid: 177955, type: "top" })
             playcount: 622
         }
     },
-	...
+//... 2 more items
 ]
