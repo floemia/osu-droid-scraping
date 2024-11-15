@@ -65,12 +65,11 @@ const scores = async (params: DroidScoreParameters): Promise<DroidScore[] | unde
 	if (data.includes("<h1>User not found.</h1>")) return undefined;
 	const user = await droid.user!({ uid: params.uid, response: data })
 	// delete unimportant data
-	data = data.split("<!--Top Plays-->")[1]
-		.split("Recent Plays</b>")[params.type == "recent" ? 1 : 0]
+	data = data.split("<!--Top Plays-->")[1].split("Recent Plays</b>")[params.type == "recent" ? 1 : 0]
 
 	const scores = data.match(/(?<=<a class="">)(.*?)(?=<\/span>)/g)
 	if (!scores) return []
-	if (params.limit && params.limit > 0 && scores.length > params.limit) scores.length = params.limit
+	if (params.limit && (scores.length > params.limit || params.limit <= 0)) scores.length = params.limit
 
 	const scores_array: DroidScore[] = []
 

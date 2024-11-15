@@ -1,12 +1,10 @@
 /**
- * An osu!droid user profile.
- *
- */
+* An osu!droid user profile.
+**/
 interface DroidUser {
 	/**
 	* The username of the account.
 	**/
-
 	username: string,
 
 	/**
@@ -15,8 +13,8 @@ interface DroidUser {
 	avatar_url: string,
 
 	/**
-		* The UID of the account.
-		**/
+	* The UID of the account.
+	**/
 	id: number,
 
 	/**
@@ -91,7 +89,7 @@ interface DroidScore {
 	/**
 	* The achieved rank of the score.
 	* 
-	* ( "XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D" )
+	* One of these => `["XH" | "X" | "SH" | "S" | "A" | "B" | "C" | "D"]`
 	**/
 	rank: string,
 
@@ -108,7 +106,9 @@ interface DroidScore {
 	/**
 	* The total DPP obtained from this score.
 	* 
-	* It should only be used if needed. Please use this instead.
+	* It should only be used if needed, as beatmaps that aren't ranked or whitelisted will return `NaN`. 
+	* 
+	* Please use this instead:
 	* 
 	* https://github.com/Rian8337/osu-droid-module/tree/master/packages/osu-difficulty-calculator
 	**/
@@ -143,7 +143,6 @@ interface DroidScore {
 
 	/**
 	* The author of this score.
-	* 
 	**/
 	user: DroidUser,
 
@@ -155,7 +154,6 @@ interface DroidScore {
 interface DroidScoreParameters {
 	/**
 	* UID of the osu!droid account.
-	* 
 	**/
 	uid: number,
 
@@ -167,11 +165,12 @@ interface DroidScoreParameters {
 	/**
 	* Type of score to return.
 	* 
+	* Defaults to `"top"`.
 	**/
-	type: "recent" | "top"
+	type: "top" | "recent"
 
 	/**
-	* Optional. Limit of scores to return `(1 <= x <= 50)`.
+	* Optional. Amount of scores to return `(1 <= x <= 50)`.
 	* 
 	* Defaults to 50.
 	**/
@@ -185,7 +184,7 @@ interface DroidMods {
 	/**
 	* An array with abreviated mods.
 	* 
-	* `["HR", "HD", "DT", ...]` 
+	* `["HardRock", "Hidden", ...]` => `acronyms: ["HR", "HD", ...]` 
 	* 
 	* A No Mod play will return `[]`.
 	**/
@@ -194,7 +193,7 @@ interface DroidMods {
 	/**
 	* The speed rate applied on top of the mods.
 	* 
-	* `(1.75x) => speed: 1.25`
+	* `["HardRock", "Hidden", "1.75x"]` => `speed: 1.75`
 	* 
 	* Defaults to `speed: 1`.
 	**/

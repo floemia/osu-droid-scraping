@@ -1,11 +1,9 @@
 
 # osu!droid web scraping
 
-A small package to retrieve some info about an osu!droid user.
+A small module that gathers information about an osu!droid user.
 
-It retrieves the HTML source code from `https://osudroid.moe/profile.php?uid={uid}` and parses it.
-
-**This module may break whenever the page gets updated.**
+It retrieves the HTML source code from `https://osudroid.moe/profile.php?uid={uid}` and parses it. As expected, it may break whenever the page gets updated. I'll keep an eye on it and update this package if needed.
 
 **Please, be responsible with the usage of this package.**
 
@@ -14,7 +12,7 @@ It retrieves the HTML source code from `https://osudroid.moe/profile.php?uid={ui
 
 ## Installation
 ```
-$ npm i osu-droid-scraping
+> npm i osu-droid-scraping
 ```
 ## Usage
 ```js
@@ -36,17 +34,18 @@ if (data) {
 // - calling without passing the html -
 //
 // keep in mind that every call will make a request to osudroid.moe
-// this is recommended ONLY if you're going to call only one function
+// this is recommended ONLY IF you're going to call ONLY ONE function
 
 const user = await droid.user({ uid: 177955 })
-const recent_scores = await droid.scores({ uid: 177955 })
+const recent_scores = await droid.scores({ uid: 177955, type: "recent" })
 
 ```
 
 ## Example output
 
 ```js
-// DroidUser
+const user = await droid.user({ uid: 177955 })
+// will return DroidUser
 {
   username: 'MG_floemia',
   avatar_url: 'https://osudroid.moe/user/avatar/177955.png',
@@ -61,7 +60,8 @@ const recent_scores = await droid.scores({ uid: 177955 })
 ```
 
 ```js
-// DroidScore[]
+const top_plays = await droid.user({ uid: 177955, type: "top" })
+// will return DroidScore[]
 [
     {
         title: 'THE ORAL CIGARETTES - Flower (Nevo) [Reflect',
@@ -70,10 +70,7 @@ const recent_scores = await droid.scores({ uid: 177955 })
         timestamp: 1720731488000,
         dpp: 564,
         mods: {
-            acronyms: [
-                'HD',
-                'NC'
-            ],
+            acronyms: [ 'HD', 'NC' ],
             speed: 1
         },
         accuracy: 99.24,
@@ -84,15 +81,13 @@ const recent_scores = await droid.scores({ uid: 177955 })
             username: 'MG_floemia',
             avatar_url: 'https://osudroid.moe/user/avatar/177955.png',
             id: 177955,
-            rank: {
-                score: 1502,
-                dpp: 123
-            },
+            rank: { score: 1502, dpp: 123 },
             country: 'PY',
             ranked_score: 4270092650,
             dpp: 8528,
             accuracy: 96.5,
             playcount: 622
         }
-    }
+    },
+	...
 ]
