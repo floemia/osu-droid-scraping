@@ -1,9 +1,13 @@
 {
   "name": "osu-droid-scraping",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "web-scraping to get info about an osu!droid user",
   "author": {
     "name": "floemia"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/floemia/osu-droid-scraping.git"
   },
   "keywords": [
     "typescript",
