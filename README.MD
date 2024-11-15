@@ -27,8 +27,8 @@ const data = await droid.request(177955)
 
 if (data) {
 	const user = await droid.user({ response: data })
-	const recent_scores = await droid.scores({ uid: 177955, type: "recent", response: data })
-	const top_plays = await droid.scores({ uid: 177955, type: "top", response: data })
+	const recent_scores = await droid.scores({ uid: 177955, type: "recent", response: data, limit: 30 })
+	const top_plays = await droid.scores({ uid: 177955, type: "top", response: data, limit: 10 })
 }
 
 // - calling without passing the html -
@@ -60,7 +60,7 @@ const user = await droid.user({ uid: 177955 })
 ```
 
 ```js
-const top_plays = await droid.scores({ uid: 177955, type: "top", limit: 3  })
+const top_plays = await droid.scores({ uid: 177955, type: "top", limit: 3 })
 // will return DroidScore[]
 [
     {
