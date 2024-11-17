@@ -36,7 +36,7 @@ const user = async (params: DroidUserParameters): Promise<DroidUser | undefined>
 	 * `tech_data[3]` - Playcount.
 	 */
 	const tech_data = data.match(/(?<=<\/td> <td>)(.*?)(?=<\/td> <\/tr>)/g)!
-
+	console.log(tech_data)
 	return {
 		username: data.match(/(?<=15px; color: #EB2F96;">)(.*?)(?=<\/a>)/g)![0],
 		avatar_url: `https://osudroid.moe/user/avatar/${data.match(/(?<=src=".\/user\/avatar\/)(.*?)(?=")/g)![0]}`,
@@ -79,7 +79,7 @@ const scores = async (params: DroidScoreParameters): Promise<DroidScore[] | unde
 			rank: score.match(/(?<=\/assets\/img\/ranking-)(.*?)(?=.png")/g)![0],
 			score: Number(score.match(/(?<=score: )(.*?)(?= \/ )/g)![0].replace(/,/g, '')),
 			timestamp: new Date(score.match(/(?<=style="margin-left: 50px;">)(.*?)(?= \/)/g)![0]).getTime(),
-			dpp: Number(score.match(/(?<=pp:)(.*?)(?=\/)/g)![0]),
+			dpp: Number(score.match(/(?<=pp:)(.*?)(?=\/)/g)![0].replace(",", "")),
 			mods: droid.mods(score.match(/(?<=mod:)(.*?)(?=\/)/g)![0].replace(/ |x/g, '').split(",")),
 			accuracy: Number(score.match(/(?<=accuracy: )(.*?)(?=%)/g)![0]),
 			combo: Number(score.match(/(?<=combo: )(.*?)(?= x)/g)![0]),
