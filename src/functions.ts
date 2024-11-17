@@ -36,7 +36,6 @@ const user = async (params: DroidUserParameters): Promise<DroidUser | undefined>
 	 * `tech_data[3]` - Playcount.
 	 */
 	const tech_data = data.match(/(?<=<\/td> <td>)(.*?)(?=<\/td> <\/tr>)/g)!
-	console.log(tech_data)
 	return {
 		username: data.match(/(?<=15px; color: #EB2F96;">)(.*?)(?=<\/a>)/g)![0],
 		avatar_url: `https://osudroid.moe/user/avatar/${data.match(/(?<=src=".\/user\/avatar\/)(.*?)(?=")/g)![0]}`,
