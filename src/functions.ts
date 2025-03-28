@@ -2,13 +2,14 @@ import type { DroidMods, DroidScore, DroidScoreParameters, DroidUser, DroidUserP
 /**
  * Given the `uid` of an osu!droid account, returns a `DroidUser` with all of their parsed info from `osu!droid.moe`.
  * 
- * Returns `undefined` if the user doesn't exist.
+ * Returns `{ error: "User doesn't exist." }` if the user doesn't exist.
  *
  * @param {DroidScoreParameters} params - Parameters for osu!droid user fetching.
 */
-const user = async (params: DroidUserParameters): Promise<DroidUser | undefined> => {
+const user = async (params: DroidUserParameters): Promise<DroidUser | { error: string }> => {
 	let data = params.response ? params.response : await request(params.uid)
-	if (!data) return undefined
+	if (typeof (data) != "string" && "error" in data) return data
+
 	// get rid of unnecessary data
 	data = data.split("<!--Top Plays-->")[0];
 
@@ -57,12 +58,12 @@ const user = async (params: DroidUserParameters): Promise<DroidUser | undefined>
 *
  * @param {DroidScoreParameters} params - Parameters for osu!droid user's scores fetching.
 */
-const scores = async (params: DroidScoreParameters): Promise<DroidScore[] | undefined> => {
+const scores = async (params: DroidScoreParameters): Promise<DroidScore[] | { error: string }> => {
 	let data = params.response ? params.response : await request(params.uid!)
-	if (!data) return undefined
+	if (typeof (data) != "string" && "error" in data) return data
 
-	if (data.includes("<h1>User not found.</h1>")) return undefined;
 	const user = await droid.user!({ uid: params.uid, response: data })
+	if ("error" in user) return user
 	// delete unimportant data
 	data = data.split("<!--Top Plays-->")[1].split("Recent Plays</b>")[params.type == "recent" ? 1 : 0]
 
@@ -94,16 +95,22 @@ const scores = async (params: DroidScoreParameters): Promise<DroidScore[] | unde
 /**
 * Given the `uid` of an osu!droid account, retrieves the HTML source code of the user's page from `osudroid.moe`.
 *
+* Returns `{ error: "User doesn't exist." }` if the user doesn't exist.
+* 
 * @param {number} uid - The UID of the osu!droid account.
 */
-const request = async (uid: number): Promise<string | undefined> => {
+const request = async (uid: number): Promise<string | { error: string }> => {
 	let data;
-	const response = await fetch(`https://osudroid.moe/profile.php?uid=${uid}`)
-	if (!response.ok) {
-		throw new Error(`Error: ${response.statusText}`);
+	try {
+		const response = await fetch(`https://osudroid.moe/profile.php?uid=${uid}`)
+		if (!response.ok) {
+			throw new Error(`Error: ${response.statusText}`);
+		}
+		data = await response.text()
+		if (data.includes("<h1>User not found.</h1>")) return { error: "User doesn't exist." }
+	} catch (error) {
+		return { error: `Network / Address / Internal error.` }
 	}
-	data = await response.text()
-	if (data.includes("<h1>User not found.</h1>")) return undefined
 	// remove useless stuff
 	return data.replace(/\n| +(?= )|> </g, '').split("<!--Avatar, Region, Rank-->")[1].split(`<footer class="footer">`)[0]
 }
@@ -148,7 +155,7 @@ export const droid = {
 	/**
 	 * Given the `uid` of an osu!droid account, returns a `DroidUser` with all of their parsed info from `osu!droid.moe`.
 	 * 
-	 * Returns `undefined` if the user doesn't exist.
+	 * Returns `{ error: "User doesn't exist." }` if the user doesn't exist.
 	 *
 	 * @param {DroidScoreParameters} params - Parameters for osu!droid user fetching.
 	*/
@@ -173,7 +180,7 @@ export const droid = {
 	/**
 	 * Given the `uid` of an osu!droid account, retrieves the HTML source code of the user's page from `osudroid.moe`.
 	 * 
-	 * Returns `undefined` if the user doesn't exist.
+	 * Returns `{ error: "User doesn't exist." }` if the user doesn't exist.
 	 * @param {number} uid - The UID of the osu!droid account.
 	*/
 	request
